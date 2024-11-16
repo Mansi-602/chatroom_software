@@ -8,6 +8,8 @@ import AntSwitch from '../../components/AntSwitch';
 import { faker } from "@faker-js/faker";
 import Logo from "../../assets/Images/logo.ico";
 import { useNavigate } from 'react-router-dom';
+import { LogoutUser } from '../../redux/slices/auth';
+import { useDispatch } from 'react-redux';
 
 const getPath = (index) => {
   switch (index) {
@@ -40,6 +42,7 @@ const getMenuPath = (index) => {
 }
 
 const SideBar = () => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const navigate = useNavigate();
   const [selected, setSelected] = useState(0);
@@ -124,6 +127,7 @@ const SideBar = () => {
                 navigate(getPath(3));
               }}
                 sx={{ width: "max-content", color: "#000" }}
+                
               >
                 <Gear />
               </IconButton>
@@ -161,12 +165,20 @@ const SideBar = () => {
           >
             <Stack spacing={1} px={1}>
               {Profile_Menu.map((el, idx) => (
-                <MenuItem onClick={() => {
-                  handleClick();
+                <MenuItem
+                  onClick={() => {
+                    handleClick();
 
-                }}>
+                  }}>
                   <Stack onClick={() => {
-                    navigate(getMenuPath(idx));
+                    //if idx 2 then dispatch
+                    if (idx === 2) {
+                      dispatch(LogoutUser());
+
+                    }
+                    else {
+                      navigate(getMenuPath(idx));
+                    }
                   }}
                     sx={{ width: 100 }} direction="row" alignItems={"center"} justifyContent="space-between">
                     <span>{el.title}</span> {el.icon}</Stack></MenuItem>

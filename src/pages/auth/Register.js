@@ -9,7 +9,7 @@ const Register = () => {
     return (
         <>
             <Stack spacing={2} sx={{ mb: 5, position: "relative" }}>
-                <Typography variant='h4'>Get Started With Tawk</Typography>
+                <Typography variant='h4'>Get Started With BinkyTalk</Typography>
                 <Stack direction="row" spacing={0.5}>
                     <Typography variant="body2"> Already have an account? </Typography>
 

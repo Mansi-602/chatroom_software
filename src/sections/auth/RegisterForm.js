@@ -5,8 +5,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Alert, Button, IconButton, InputAdornment, Stack } from '@mui/material';
 import FormProvider, { RHFTextField } from "../../components/hook-form";
 import { Eye, EyeSlash } from 'phosphor-react';
+import { RegisterUser } from '../../redux/slices/auth';
+import { useDispatch } from 'react-redux';
 
 const RegisterForm = () => {
+    const dispatch=useDispatch();
 
     const [showPassword, setShowPassword] = useState(false);
 
@@ -35,7 +38,7 @@ const RegisterForm = () => {
         reset,
         setError,
         handleSubmit,
-        formState: { errors, isSubmitting, isSubmitSuccessful },
+        formState: { errors },
     } = methods;
 
     const onSubmit = async (data) => {
@@ -43,6 +46,7 @@ const RegisterForm = () => {
 
             //   submit data to backend
 
+            dispatch(RegisterUser(data))
         } catch (error) {
             console.error(error);
             reset();
